@@ -4,4 +4,6 @@ class HomeController {
   }
 }
 
-export default new HomeController();
+const homeController = new HomeController();
+
+export default homeController;
