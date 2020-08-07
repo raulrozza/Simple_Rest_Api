@@ -21,7 +21,7 @@ class UserController {
 
   async index(_, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
       return res.json(users);
     } catch (error) {
       return res.status(500).send();
@@ -32,7 +32,9 @@ class UserController {
     const { id } = req.params;
 
     try {
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(id, {
+        attributes: ['id', 'name', 'email'],
+      });
       return res.json(user);
     } catch (error) {
       return res.status(500).send();
@@ -40,7 +42,7 @@ class UserController {
   }
 
   async update(req, res) {
-    const { id } = req.params;
+    const { id } = req.user;
     const { name, email, password } = req.body;
 
     try {
@@ -64,7 +66,7 @@ class UserController {
   }
 
   async delete(req, res) {
-    const { id } = req.params;
+    const { id } = req.user;
 
     try {
       if (!id) throw new Error();
