@@ -9,15 +9,18 @@ export default async (req, res, next) => {
 
     const [, token] = authorization.split(' ');
 
-    const data = jwt.verify(token, process.env.TOKEN_SECRET);
+    const { id, email } = jwt.verify(token, process.env.TOKEN_SECRET);
 
-    const userValid = await User.findOne({ where: data });
+    const userValid = await User.findOne({ where: { id, email } });
     if (!userValid) throw new JsonWebTokenError();
 
-    req.user = data;
+    req.user = { id, email };
 
     return next();
   } catch (error) {
-    return res.status(401).json({ message: 'Unauthorized access.' });
+    if (error instanceof JsonWebTokenError)
+      return res.status(401).json({ message: 'Unauthorized access.' });
+
+    return res.status(500).json({ message: 'Oops. Something went wrong.' });
   }
 };

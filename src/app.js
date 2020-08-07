@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
+
+import './database/connection';
 import userRoutes from './routes/user.routes';
 import loginRoutes from './routes/login.routes';
-import './database/connection';
+import studentRoutes from './routes/student.routes';
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ class App {
   routes() {
     this.app.use('/users', userRoutes);
     this.app.use('/login', loginRoutes);
+    this.app.use('/students', studentRoutes);
   }
 }
 
