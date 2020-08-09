@@ -1,4 +1,5 @@
 import Student from '../models/Student';
+import Picture from '../models/Picture';
 
 class StudentController {
   async store(req, res) {
@@ -19,9 +20,18 @@ class StudentController {
     try {
       const students = await Student.findAll({
         attributes: ['id', 'firstname', 'lastname', 'email', 'age', 'height'],
+        order: [
+          ['id', 'DESC'],
+          [Picture, 'id', 'DESC'],
+        ],
+        include: {
+          model: Picture,
+          attributes: ['filename'],
+        },
       });
       return res.json(students);
     } catch (error) {
+      console.log(error);
       return res.status(500).send();
     }
   }
