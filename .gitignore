@@ -1,5 +1,5 @@
 node_modules
 .env
-uploads/*.png
-uploads/*.jpg
-uploads/*.jpeg
+uploads/images/*.png
+uploads/images/*.jpg
+uploads/images/*.jpeg

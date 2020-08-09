@@ -26,7 +26,7 @@ class StudentController {
         ],
         include: {
           model: Picture,
-          attributes: ['filename'],
+          attributes: ['filename', 'url'],
         },
       });
       return res.json(students);
