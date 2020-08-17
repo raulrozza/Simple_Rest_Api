@@ -23,7 +23,10 @@ class LoginController {
         },
       );
 
-      return res.json({ token });
+      return res.json({
+        token,
+        user: { name: user.name, id: user.id, email: user.email },
+      });
     } catch (error) {
       return res.status(400).send({
         message: 'There was an error with your request.',
