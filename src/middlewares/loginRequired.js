@@ -5,7 +5,7 @@ export default async (req, res, next) => {
   const { authorization } = req.headers;
 
   try {
-    if (!authorization) return new JsonWebTokenError();
+    if (!authorization) throw new JsonWebTokenError();
 
     const [, token] = authorization.split(' ');
 
