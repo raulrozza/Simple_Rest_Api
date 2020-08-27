@@ -42,6 +42,10 @@ class StudentController {
     try {
       const student = await Student.findByPk(id, {
         attributes: ['id', 'firstname', 'lastname', 'email', 'age', 'height'],
+        include: {
+          model: Picture,
+          attributes: ['filename', 'url'],
+        },
       });
       return res.json(student);
     } catch (error) {
